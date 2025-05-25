@@ -12,12 +12,20 @@ import { createSite } from "../../services/api";
 import "./Wizard.css";
 
 const steps = [
-  { id: "organization", title: "Organization Details" },
-  { id: "team", title: "Team Members" },
-  { id: "projects", title: "Projects" },
-  { id: "design", title: "Design" },
-  { id: "contact", title: "Contact & Social" },
-  { id: "review", title: "Review & Submit" },
+  {
+    id: "organization",
+    title: "Organization",
+    description: "Tell us about your NGO",
+  },
+  { id: "team", title: "Team", description: "Introduce your team members" },
+  {
+    id: "projects",
+    title: "Projects",
+    description: "Showcase your initiatives",
+  },
+  { id: "design", title: "Design", description: "Customize your look" },
+  { id: "contact", title: "Contact", description: "Add contact details" },
+  { id: "review", title: "Review", description: "Review and create" },
 ];
 
 const initialState = {
@@ -32,10 +40,10 @@ const initialState = {
   team: [{ name: "", role: "", bio: "", photo: null }],
   projects: [{ title: "", description: "", image: null }],
   design: {
-    primaryColor: "#4a6fa5",
-    secondaryColor: "#166088",
-    accentColor: "#4cb5ae",
-    font: "Roboto",
+    primaryColor: "#14b8a6",
+    secondaryColor: "#1f2937",
+    accentColor: "#f59e0b",
+    font: "Outfit",
     theme: "modern",
   },
   contact: {
@@ -69,6 +77,13 @@ const Wizard = () => {
   const handlePrev = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handleStepClick = (stepIndex) => {
+    if (stepIndex < currentStep) {
+      setCurrentStep(stepIndex);
       window.scrollTo(0, 0);
     }
   };
@@ -145,56 +160,167 @@ const Wizard = () => {
     }
   };
 
+  const getStepStatus = (index) => {
+    if (index < currentStep) return "completed";
+    if (index === currentStep) return "active";
+    return "pending";
+  };
+
   return (
-    <div className="wizard-container">
-      <h1 className="wizard-title">Create Your NGO Website</h1>
+    <div className="wizard">
+      <div className="wizard-container">
+        <div className="wizard-header">
+          <h1>Create Your NGO Website</h1>
+          <p>
+            Follow these simple steps to build a professional website for your
+            organization
+          </p>
+        </div>
 
-      {error && <div className="alert alert-danger">{error}</div>}
-
-      <div className="wizard-progress">
-        {steps.map((step, index) => (
-          <div
-            key={step.id}
-            className={`progress-step ${
-              index === currentStep ? "active" : ""
-            } ${index < currentStep ? "completed" : ""}`}
-            onClick={() => index < currentStep && setCurrentStep(index)}
-          >
-            <div className="step-indicator">{index + 1}</div>
-            <div className="step-title">{step.title}</div>
+        {error && (
+          <div className="alert alert-error">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                fill="currentColor"
+              />
+            </svg>
+            {error}
           </div>
-        ))}
-      </div>
-
-      <div className="wizard-content card">
-        <h2 className="step-heading">{steps[currentStep].title}</h2>
-        {renderStep()}
-      </div>
-
-      <div className="wizard-actions">
-        {currentStep > 0 && (
-          <button
-            className="btn btn-secondary"
-            onClick={handlePrev}
-            disabled={isLoading}
-          >
-            Previous
-          </button>
         )}
 
-        {currentStep < steps.length - 1 ? (
-          <button className="btn btn-primary" onClick={handleNext}>
-            Next
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? "Creating..." : "Create Website"}
-          </button>
-        )}
+        <div className="wizard-progress">
+          {steps.map((step, index) => (
+            <div
+              key={step.id}
+              className={`progress-step ${getStepStatus(index)}`}
+              onClick={() => handleStepClick(index)}
+            >
+              <div className="step-indicator">
+                {getStepStatus(index) === "completed" ? (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                ) : (
+                  <span>{index + 1}</span>
+                )}
+              </div>
+              <div className="step-content">
+                <div className="step-title">{step.title}</div>
+                <div className="step-description">{step.description}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="wizard-main">
+          <div className="wizard-content">
+            <div className="step-header">
+              <h2>{steps[currentStep].title}</h2>
+              <p>{steps[currentStep].description}</p>
+            </div>
+
+            <div className="step-body">{renderStep()}</div>
+          </div>
+        </div>
+
+        <div className="wizard-actions">
+          <div className="actions-left">
+            {currentStep > 0 && (
+              <button
+                className="btn btn-secondary"
+                onClick={handlePrev}
+                disabled={isLoading}
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M11 12l-4-4 4-4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Previous
+              </button>
+            )}
+          </div>
+
+          <div className="actions-right">
+            {currentStep < steps.length - 1 ? (
+              <button className="btn btn-primary" onClick={handleNext}>
+                Next
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M5 12l4-4-4-4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <svg
+                      className="spinner"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <circle
+                        cx="8"
+                        cy="8"
+                        r="6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeDasharray="31.416"
+                        strokeDashoffset="31.416"
+                      >
+                        <animate
+                          attributeName="stroke-dasharray"
+                          dur="2s"
+                          values="0 31.416;15.708 15.708;0 31.416"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="stroke-dashoffset"
+                          dur="2s"
+                          values="0;-15.708;-31.416"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    </svg>
+                    Creating Website...
+                  </>
+                ) : (
+                  <>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M8 1v14M15 8H1"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    Create Website
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

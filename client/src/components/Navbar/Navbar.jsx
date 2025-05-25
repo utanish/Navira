@@ -1,27 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          <span className="logo-text">NGO</span>
-          <span className="logo-accent">Site</span>
-          <span className="logo-text">Generator</span>
+        <Link to="/" className="navbar-brand">
+          <div className="brand-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="currentColor" />
+              <path
+                d="M8 12h16v2H8v-2zm0 4h16v2H8v-2zm0 4h12v2H8v-2z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <span className="brand-text">Navira</span>
         </Link>
-        <ul className="nav-menu">
-          <li className="nav-item">
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/create" className="nav-link create-btn">
-              Create Website
-            </Link>
-          </li>
-        </ul>
+
+        <div className="navbar-menu">
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+          >
+            Home
+          </Link>
+          <Link to="/create" className="btn btn-primary">
+            Create Website
+          </Link>
+        </div>
       </div>
     </nav>
   );

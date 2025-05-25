@@ -99,7 +99,7 @@ const ProjectsStep = ({ data, onChange }) => {
 
           <div className="form-group">
             <label htmlFor={`description-${index}`}>Project Description</label>
-            <div className="textarea-with-enhance">
+            <div className="input-with-enhance">
               <textarea
                 id={`description-${index}`}
                 className="form-control"

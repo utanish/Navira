@@ -10,7 +10,6 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Navbar />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -18,7 +17,7 @@ function App() {
             <Route path="/preview/:id" element={<Preview />} />
           </Routes>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

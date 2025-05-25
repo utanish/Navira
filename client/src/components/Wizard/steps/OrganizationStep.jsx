@@ -90,7 +90,7 @@ const OrganizationStep = ({ data, onChange }) => {
 
       <div className="form-group">
         <label htmlFor="mission">Mission Statement</label>
-        <div className="textarea-with-enhance">
+        <div className="input-with-enhance">
           <textarea
             id="mission"
             name="mission"
@@ -116,7 +116,7 @@ const OrganizationStep = ({ data, onChange }) => {
 
       <div className="form-group">
         <label htmlFor="vision">Vision Statement</label>
-        <div className="textarea-with-enhance">
+        <div className="input-with-enhance">
           <textarea
             id="vision"
             name="vision"
@@ -142,7 +142,7 @@ const OrganizationStep = ({ data, onChange }) => {
 
       <div className="form-group">
         <label htmlFor="about">About Your Organization</label>
-        <div className="textarea-with-enhance">
+        <div className="input-with-enhance">
           <textarea
             id="about"
             name="about"
