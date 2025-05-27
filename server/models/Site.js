@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 
-const teamMemberSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  role: {
-    type: String,
-    trim: true,
-  },
-  bio: {
-    type: String,
-    trim: true,
-  },
-  photo: {
-    type: String,
-    trim: true,
-  },
-});
+// const teamMemberSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//     trim: true,
+//   },
+//   role: {
+//     type: String,
+//     trim: true,
+//   },
+//   bio: {
+//     type: String,
+//     trim: true,
+//   },
+//   photo: {
+//     type: String,
+//     trim: true,
+//   },
+// });
 
 const projectSchema = new mongoose.Schema({
   title: {
@@ -53,12 +53,12 @@ const designSchema = new mongoose.Schema({
   font: {
     type: String,
     default: "Roboto",
-  },
-  theme: {
-    type: String,
-    default: "modern",
-    enum: ["modern", "classic", "minimal", "bold"],
-  },
+  }
+  // theme: {
+  //   type: String,
+  //   default: "modern",
+  //   enum: ["modern", "classic", "minimal", "bold"],
+  // },
 });
 
 const socialMediaSchema = new mongoose.Schema({
@@ -123,7 +123,7 @@ const siteSchema = new mongoose.Schema(
       type: organizationSchema,
       required: true,
     },
-    team: [teamMemberSchema],
+    // team: [teamMemberSchema],
     projects: [projectSchema],
     design: {
       type: designSchema,

@@ -47,21 +47,6 @@ const ReviewStep = ({ data, onSubmit, isLoading }) => {
       </div>
 
       <div className="review-section">
-        <h3 className="review-title">Team Members</h3>
-        {data.team.length > 0 ? (
-          data.team.map((member, index) => (
-            <div key={index} className="review-team-member">
-              <strong>{member.name || `Team Member ${index + 1}`}</strong>
-              {member.role && <span> - {member.role}</span>}
-              {member.photo && <span className="text-success"> ✓ Photo</span>}
-            </div>
-          ))
-        ) : (
-          <div className="review-item">No team members added</div>
-        )}
-      </div>
-
-      <div className="review-section">
         <h3 className="review-title">Projects</h3>
         {data.projects.length > 0 ? (
           data.projects.map((project, index) => (

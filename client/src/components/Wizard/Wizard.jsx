@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrganizationStep from "./steps/OrganizationStep";
-import TeamStep from "./steps/TeamStep";
 import ProjectsStep from "./steps/ProjectsStep";
 import DesignStep from "./steps/DesignStep";
 import ContactStep from "./steps/ContactStep";
@@ -17,7 +16,6 @@ const steps = [
     title: "Organization",
     description: "Tell us about your NGO",
   },
-  { id: "team", title: "Team", description: "Introduce your team members" },
   {
     id: "projects",
     title: "Projects",
@@ -37,7 +35,6 @@ const initialState = {
     logo: null,
     banner: null,
   },
-  team: [{ name: "", role: "", bio: "", photo: null }],
   projects: [{ title: "", description: "", image: null }],
   design: {
     primaryColor: "#14b8a6",
@@ -121,33 +118,26 @@ const Wizard = () => {
         );
       case 1:
         return (
-          <TeamStep
-            data={formData.team}
-            onChange={(data) => handleChange("team", data)}
-          />
-        );
-      case 2:
-        return (
           <ProjectsStep
             data={formData.projects}
             onChange={(data) => handleChange("projects", data)}
           />
         );
-      case 3:
+      case 2:
         return (
           <DesignStep
             data={formData.design}
             onChange={(data) => handleChange("design", data)}
           />
         );
-      case 4:
+      case 3:
         return (
           <ContactStep
             data={formData.contact}
             onChange={(data) => handleChange("contact", data)}
           />
         );
-      case 5:
+      case 4:
         return (
           <ReviewStep
             data={formData}

@@ -36,7 +36,7 @@
   font-size: 0.875rem;
   transition: var(--transition);
   background: var(--background);
-  font-family: inherit;
+  font-family: "Outfit";
 }
 
 .form-control:focus {

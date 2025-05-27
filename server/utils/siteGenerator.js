@@ -43,7 +43,7 @@ class SiteGenerator {
     const templateData = {
       site: siteData,
       organization: siteData.organization,
-      team: siteData.team,
+      // team: siteData.team,
       projects: siteData.projects,
       design: siteData.design,
       contact: siteData.contact,
@@ -66,10 +66,10 @@ class SiteGenerator {
     const cssTemplate = `
 /* NGO Website Styles */
 :root {
-  --primary-color: ${design.primaryColor};
-  --secondary-color: ${design.secondaryColor};
-  --accent-color: ${design.accentColor};
-  --font-family: '${design.font}', sans-serif;
+  --primary-color: ${design.primaryColor || "#00796B"};
+  --secondary-color: ${design.secondaryColor || "#004D40"};
+  --accent-color: ${design.accentColor || "#26A69A"};
+  --font-family: '${design.font || "Poppins"}', sans-serif;
   --text-color: #333333;
   --light-bg: #f8f9fa;
   --white: #ffffff;
@@ -78,6 +78,7 @@ class SiteGenerator {
   --transition: all 0.3s ease;
 }
 
+/* Base styles */
 * {
   margin: 0;
   padding: 0;
@@ -97,7 +98,7 @@ body {
   padding: 0 20px;
 }
 
-/* Header Styles */
+/* Header */
 .header {
   background-color: var(--white);
   box-shadow: var(--box-shadow);
@@ -149,7 +150,7 @@ body {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: var(--white);
   padding: 4rem 0;
   text-align: center;
@@ -184,7 +185,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* Section Styles */
+/* Section */
 .section {
   padding: 4rem 0;
 }
@@ -196,7 +197,7 @@ body {
   margin-bottom: 3rem;
 }
 
-/* About Section */
+/* About */
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -221,46 +222,7 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* Team Section */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.team-member {
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  text-align: center;
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
-}
-
-.team-member:hover {
-  transform: translateY(-5px);
-}
-
-.team-member img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-}
-
-.team-member h4 {
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.team-member .role {
-  color: var(--secondary-color);
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-/* Projects Section */
+/* Projects */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -294,7 +256,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Contact Section */
+/* Contact */
 .contact {
   background-color: var(--white);
 }
@@ -354,57 +316,29 @@ body {
   padding: 2rem 0;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2rem;
   }
-  
+
   .about-content,
   .contact-content {
     grid-template-columns: 1fr;
   }
-  
+
   .nav-menu {
     display: none;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
 }
-
-/* Theme-specific styles */
-${this.getThemeStyles(design.theme)}
 `;
 
     await fs.writeFile(path.join(sitePath, "css", "style.css"), cssTemplate);
-    console.log("Generated CSS for site:", siteData._id);
-  }
-
-  getThemeStyles(theme) {
-    switch (theme) {
-      case "classic":
-        return `
-          .hero { background: linear-gradient(45deg, #8B4513 0%, #A0522D 100%); }
-          .section { border-bottom: 2px solid #f0f0f0; }
-          .team-member, .project-card { border: 2px solid #e0e0e0; }
-        `;
-      case "minimal":
-        return `
-          .hero { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); }
-          .team-member, .project-card { box-shadow: none; border: 1px solid #e0e0e0; }
-          .section-title { font-weight: 300; }
-        `;
-      case "bold":
-        return `
-          .hero { background: linear-gradient(45deg, #e74c3c 0%, #c0392b 100%); }
-          .section-title { font-weight: 900; text-transform: uppercase; }
-          .team-member, .project-card { border-left: 4px solid var(--accent-color); }
-        `;
-      default:
-        return "";
-    }
+    console.log("Generated default theme CSS for site:", siteData._id);
   }
 
   async generateJS(siteData, sitePath) {
@@ -455,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }, observerOptions);
 
   // Observe elements for animation
-  const animatedElements = document.querySelectorAll('.team-member, .project-card');
+  const animatedElements = document.querySelectorAll('.project-card');
   animatedElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
@@ -500,15 +434,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Copy team photos
-      for (let i = 0; i < siteData.team.length; i++) {
-        const member = siteData.team[i];
-        if (member.photo) {
-          await this.copyImageFile(
-            member.photo,
-            path.join(imagesDir, `team-${i}.jpg`)
-          );
-        }
-      }
+      // for (let i = 0; i < siteData.team.length; i++) {
+      //   const member = siteData.team[i];
+      //   if (member.photo) {
+      //     await this.copyImageFile(
+      //       member.photo,
+      //       path.join(imagesDir, `team-${i}.jpg`)
+      //     );
+      //   }
+      // }
 
       // Copy project images
       for (let i = 0; i < siteData.projects.length; i++) {

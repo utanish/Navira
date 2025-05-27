@@ -165,7 +165,7 @@ const DesignStep = ({ data, onChange }) => {
         </small>
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label htmlFor="theme">Website Theme</label>
         <select
           id="theme"
@@ -182,7 +182,7 @@ const DesignStep = ({ data, onChange }) => {
         <small className="form-text text-muted">
           Choose a theme that best represents your organization's style.
         </small>
-      </div>
+      </div> */}
     </div>
   );
 };
