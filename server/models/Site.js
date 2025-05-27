@@ -1,24 +1,6 @@
 const mongoose = require("mongoose");
 
-// const teamMemberSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//     trim: true,
-//   },
-//   role: {
-//     type: String,
-//     trim: true,
-//   },
-//   bio: {
-//     type: String,
-//     trim: true,
-//   },
-//   photo: {
-//     type: String,
-//     trim: true,
-//   },
-// });
+
 
 const projectSchema = new mongoose.Schema({
   title: {
@@ -54,11 +36,7 @@ const designSchema = new mongoose.Schema({
     type: String,
     default: "Roboto",
   }
-  // theme: {
-  //   type: String,
-  //   default: "modern",
-  //   enum: ["modern", "classic", "minimal", "bold"],
-  // },
+  
 });
 
 const socialMediaSchema = new mongoose.Schema({
