@@ -40,7 +40,7 @@ const upload = multer({
 
 // Upload single image
 exports.uploadImage = [
-  upload.single("image"),
+  upload.single("file"),
   async (req, res) => {
     try {
       if (!req.file) {
@@ -94,7 +94,7 @@ exports.uploadImage = [
 
 // Upload multiple images
 exports.uploadMultipleImages = [
-  upload.array("images", 10),
+  upload.array("files", 10),
   async (req, res) => {
     try {
       if (!req.files || req.files.length === 0) {
