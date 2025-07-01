@@ -17,7 +17,7 @@ Navira is a full-stack SaaS application that enables NGOs to effortlessly genera
 * **Backend**: Node.js, Express.js
 * **Database**: MongoDB (Mongoose)
 * **AI Integration**: Gemini 1.5 Flash / Gemini Pro via Google Generative AI SDK
-* **Deployment**: Netlify (Frontend), Render (Backend)
+* **Deployment**: Render (Frontend), Render (Backend)
 
 ---
 
