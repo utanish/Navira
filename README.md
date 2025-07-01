@@ -1,96 +1,132 @@
-# NGO Website Builder
+# Navira – AI-Powered NGO Website Generator
 
-A no-signup, no-code web platform for NGOs to instantly generate professional, static websites. Users fill a guided form, preview their site, generate and customize content with Gemini API, and deploy with one click to Netlify or download as ZIP.
+Navira is a full-stack SaaS application that enables NGOs to effortlessly generate and deploy modern websites through a question-based flow. It leverages Gemini AI to enhance content and integrates with Netlify for one-click deployment.
 
-## Features
+---
 
-- Multi-step form for collecting NGO information
-- Real-time preview of the website
-- Template selection and theme customization
-- AI-powered content generation using Gemini API
-- One-click deployment to Netlify
-- Download as ZIP option
+##  Live URLs
 
-## Tech Stack
+* **Frontend**: [https://navira.onrender.com](https://navira.onrender.com)
+* **Backend**: [https://navira-backend.onrender.com](https://navira-backend.onrender.com)
 
-- **Frontend**: React (JavaScript)
-- **Backend**: Express (Node.js)
-- **Database**: MongoDB
-- **APIs**: Gemini API for content generation, Netlify API for deployment
+---
 
-## Setup Instructions
+##  Tech Stack
 
-### Prerequisites
+* **Frontend**: React (Vite), Tailwind CSS
+* **Backend**: Node.js, Express.js
+* **Database**: MongoDB (Mongoose)
+* **AI Integration**: Gemini 1.5 Flash / Gemini Pro via Google Generative AI SDK
+* **Deployment**: Netlify (Frontend), Render (Backend)
 
-- Node.js (v14 or higher)
-- MongoDB (local or Atlas)
-- Gemini API key
-- Netlify API token
+---
 
-### Environment Variables
+##  Installation
 
-Create a `.env` file in the server directory with the following variables:
+### Backend Setup
 
-\`\`\`
+```bash
+git clone https://github.com/utanish/Navira.git
+cd Navira/server
+npm install
+```
+
+Create a `.env` file in the `server` directory with:
+
+```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 GEMINI_API_KEY=your_gemini_api_key
-NETLIFY_API_TOKEN=your_netlify_api_token
-\`\`\`
+BASE_URL=https://navira-backend.onrender.com
+ALLOWED_ORIGINS=https://navira.onrender.com,http://localhost:5173
+```
 
-### Installation
+Run the backend:
 
-1. Clone the repository
-2. Install dependencies:
+```bash
+npm start
+```
 
-\`\`\`bash
-# Install server dependencies
-cd server
-npm install
+### Frontend Setup
 
-# Install client dependencies
+```bash
 cd ../client
 npm install
-\`\`\`
+```
 
-3. Start the development servers:
+Create a `.env` file in `client`:
 
-\`\`\`bash
-# Start the backend server
-cd server
+```env
+VITE_API_URL=https://navira-backend.onrender.com/api
+```
+
+Run the frontend:
+
+```bash
 npm run dev
+```
 
-# In a new terminal, start the frontend
-cd client
-npm start
-\`\`\`
+---
 
-4. Open your browser and navigate to `http://localhost:3000`
+## Project Frontend 
 
-## Deployment
+###  Home Page 
 
-### Backend
+<img width="1671" alt="image" src="https://github.com/user-attachments/assets/b46aab6c-fd54-48c9-9b04-e3cddd75e098" />
 
-1. Deploy the server to a hosting service like Vercel, Heroku, or DigitalOcean
-2. Set up the environment variables on your hosting platform
+###  Home Page II 
 
-### Frontend
+<img width="1680" alt="image" src="https://github.com/user-attachments/assets/76b69751-1a07-40f2-bcba-12965f562038" />
 
-1. Build the React app:
+###  Website Details Form 
 
-\`\`\`bash
-cd client
-npm run build
-\`\`\`
+<img width="1680" alt="image" src="https://github.com/user-attachments/assets/48e71d6c-c1b3-48bb-bc56-6028ccce16be" />
 
-2. Deploy the build folder to a static hosting service
+---
 
-## License
+##  Folder Structure
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+```
+Navira/
+├── client/       # React frontend
+├── server/       # Express backend
+└── README.md
+```
 
-## Author
+---
 
-Developed by Tanish Upadhyay
-# Navira
-# Navira
+##  API Reference
+
+| Endpoint                       | Method | Description                             |
+| ------------------------------ | ------ | --------------------------------------- |
+| `/api/sites`                   | POST   | Create a new site entry                 |
+| `/api/sites/:id`               | GET    | Get site details by ID                  |
+| `/api/sites/:id`               | PUT    | Update site details                     |
+| `/api/sites/:id/preview`       | GET    | Generate preview HTML for the site      |
+| `/api/sites/:id/deploy`        | POST   | Deploy site to Netlify                  |
+| `/api/sites/:id/download`      | GET    | Download zipped site files              |
+| `/api/ai/enhance`              | POST   | Enhance a content field using Gemini AI |
+| `/api/ai/suggest`              | POST   | Get field suggestions via Gemini AI     |
+| `/api/ai/status`               | GET    | Check AI service health                 |
+| `/api/upload`                  | POST   | Upload single image                     |
+| `/api/upload/delete/:filename` | DELETE | Delete uploaded image                   |
+
+---
+
+
+
+
+
+
+---
+
+##  Author
+
+* **Tanish Upadhyay**
+  [GitHub](https://github.com/utanish) | [LinkedIn](https://www.linkedin.com/in/tanish-upadhyay/)
+
+---
+
+##  License
+
+MIT License – see `LICENSE` file for details.
