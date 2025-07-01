@@ -125,8 +125,4 @@ Navira/
 * **Tanish Upadhyay**
   [GitHub](https://github.com/utanish) | [LinkedIn](https://www.linkedin.com/in/tanish-upadhyay/)
 
----
 
-##  License
-
-MIT License – see `LICENSE` file for details.
